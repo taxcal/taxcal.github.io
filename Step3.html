@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คำนวณภาษี: ลดหย่อน</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>รายการลดหย่อนภาษี</h2>
+        <form action="summary.html" method="get">
+            <label>สถานภาพ:</label>
+            <select name="status" id="status" onchange="toggleChildrenFields()" required>
+                <option value="single">โสด</option>
+                <option value="married_separate">คู่สมรส (แยกยื่น)</option>
+                <option value="divorced">หย่า</option>
+                <option value="married_no_income">คู่สมรสไม่มีเงินได้</option>
+            </select>
+            <div id="parent_reduction">
+                <label>ลดหย่อนบิดามารดา:</label>
+                <select name="parent">
+                    <option value="none">ไม่มี</option>
+                    <option value="one">1 คน (บิดา/มารดา)</option>
+                    <option value="two">2 คน (บิดาและมารดา)</option>
+                </select>
+                <p>หมายเหตุ: บิดามารดาต้องอายุ 60 ปีขึ้นไป และมีรายได้ต่อปีน้อยกว่า 30,000 บาท</p>
+            </div>
+            <div id="children_reduction" style="display:none;">
+                <label>บุตรคนที่ 1:</label>
+                <select name="child1" onchange="toggleExtraChildrenFields()">
+                    <option value="none">ไม่มี</option>
+                    <option value="has">มี</option>
+                </select>
+                <div id="extra_children" style="display:none;">
+                    <label>บุตรที่เกิดก่อนปี 2561:</label>
+                    <input type="number" name="child_before_2018" min="0">
+                    <label>บุตรที่เกิดตั้งแต่ปี 2561:</label>
+                    <input type="number" name="child_after_2018" min="0">
+                </div>
+            </div>
+            <button type="submit">ถัดไป</button>
+        </form>
+    </div>
+    <script>
+        function toggleChildrenFields() {
+            const status = document.getElementById("status").value;
+            const childrenReduction = document.getElementById("children_reduction");
+            if (status === "single") {
+                childrenReduction.style.display = "none";
+            } else {
+                childrenReduction.style.display = "block";
+            }
+        }
+
+        function toggleExtraChildrenFields() {
+            const child1 = document.querySelector("select[name='child1']").value;
+            const extraChildren = document.getElementById("extra_children");
+            if (child1 === "has") {
+                extraChildren.style.display = "block";
+            } else {
+                extraChildren.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
