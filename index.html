@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tax Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>โปรแกรมคำนวณภาษี</h1>
+  </header>
+
+  <main>
+    <form id="tax-form">
+      <label for="income">รายได้รวมต่อปี (บาท):</label>
+      <input type="number" id="income" name="income" required>
+
+      <label for="deductions">ค่าใช้จ่ายลดหย่อนภาษี (บาท):</label>
+      <input type="number" id="deductions" name="deductions" required>
+
+      <label for="status">สถานภาพสมรส:</label>
+      <select id="status" name="status">
+        <option value="single">โสด</option>
+        <option value="married">แต่งงาน</option>
+        <option value="children">มีบุตร</option>
+      </select>
+
+      <label for="children">จำนวนบุตรที่ลดหย่อนได้:</label>
+      <input type="number" id="children" name="children" value="0" min="0">
+
+      <button type="button" id="calculate-btn">คำนวณ</button>
+    </form>
+
+    <section id="result">
+      <h2>ผลลัพธ์</h2>
+      <p id="tax-amount">ภาษีที่ต้องชำระ: -</p>
+      <p id="net-income">รายได้สุทธิ: -</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>พัฒนาโดย คุณ ปรีชา ปัญญาเรียก</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
