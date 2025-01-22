@@ -1,27 +1,45 @@
-document.getElementById('calculate-btn').addEventListener('click', function () {
-  // รับข้อมูลจากฟอร์ม
-  const income = parseFloat(document.getElementById('income').value) || 0;
-  const deductions = parseFloat(document.getElementById('deductions').value) || 0;
-  const children = parseInt(document.getElementById('children').value) || 0;
+// จัดการการแสดงหน้าต่าง ๆ
+const pages = document.querySelectorAll('.page');
+const navLinks = document.querySelectorAll('nav ul li a');
 
-  // คำนวณค่าลดหย่อนเพิ่มเติม
-  const childDeduction = children * 30000; // สมมติลดหย่อนได้บุตรละ 30,000 บาท
-  const totalDeductions = deductions + childDeduction;
+navLinks.forEach((link, index) => {
+  link.addEventListener('click', () => {
+    pages.forEach(page => page.classList.remove('active'));
+    pages[index].classList.add('active');
+  });
+});
 
-  // รายได้สุทธิ
-  const taxableIncome = income - totalDeductions;
+// เก็บข้อมูลจากฟอร์ม
+const formData = {};
 
-  // คำนวณภาษี (ตามอัตราก้าวหน้า)
-  let tax = 0;
-  if (taxableIncome > 5000000) tax += (taxableIncome - 5000000) * 0.35, taxableIncome = 5000000;
-  if (taxableIncome > 2000000) tax += (taxableIncome - 2000000) * 0.3, taxableIncome = 2000000;
-  if (taxableIncome > 1000000) tax += (taxableIncome - 1000000) * 0.25, taxableIncome = 1000000;
-  if (taxableIncome > 750000) tax += (taxableIncome - 750000) * 0.2, taxableIncome = 750000;
-  if (taxableIncome > 500000) tax += (taxableIncome - 500000) * 0.15, taxableIncome = 500000;
-  if (taxableIncome > 300000) tax += (taxableIncome - 300000) * 0.1, taxableIncome = 300000;
-  if (taxableIncome > 150000) tax += (taxableIncome - 150000) * 0.05;
+document.getElementById('income-form').addEventListener('input', () => {
+  formData.salary = parseFloat(document.getElementById('salary').value) || 0;
+  formData.bonus = parseFloat(document.getElementById('bonus').value) || 0;
+  formData.freelance = parseFloat(document.getElementById('freelance').value) || 0;
+});
 
-  // แสดงผลลัพธ์
-  document.getElementById('tax-amount').textContent = `ภาษีที่ต้องชำระ: ${tax.toLocaleString()} บาท`;
-  document.getElementById('net-income').textContent = `รายได้สุทธิ: ${(income - tax).toLocaleString()} บาท`;
+document.getElementById('deductions-form').addEventListener('input', () => {
+  formData.parentSupport = parseFloat(document.getElementById('parent-support').value) || 0;
+  formData.insurance = parseFloat(document.getElementById('insurance').value) || 0;
+  formData.funds = parseFloat(document.getElementById('funds').value) || 0;
+});
+
+document.getElementById('status-form').addEventListener('input', () => {
+  formData.status = document.getElementById('status').value;
+  formData.children = parseInt(document.getElementById('children').value) || 0;
+});
+
+// อัปเดตหน้าสรุป
+document.getElementById('link-summary').addEventListener('click', () => {
+  const totalIncome = (formData.salary || 0) + (formData.bonus || 0) + (formData.freelance || 0);
+  const totalDeductions = (formData.parentSupport || 0) + (formData.insurance || 0) + (formData.funds || 0);
+  const taxableIncome = totalIncome - totalDeductions;
+
+  document.getElementById('summary-content').innerHTML = `
+    <p><strong>รายได้รวมต่อปี:</strong> ${totalIncome.toLocaleString()} บาท</p>
+    <p><strong>ค่าลดหย่อนภาษี:</strong> ${totalDeductions.toLocaleString()} บาท</p>
+    <p><strong>สถานภาพ:</strong> ${formData.status || '-'}</p>
+    <p><strong>จำนวนบุตร:</strong> ${formData.children || 0} คน</p>
+    <p><strong>รายได้ที่ต้องเสียภาษี:</strong> ${taxableIncome.toLocaleString()} บาท</p>
+  `;
 });
