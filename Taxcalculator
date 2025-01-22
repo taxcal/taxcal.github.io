@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เครื่องมือคำนวณภาษี</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .container { max-width: 600px; margin: auto; }
+    label, input { display: block; margin: 10px 0; }
+    button { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>เครื่องมือคำนวณภาษี</h1>
+    <form id="taxForm">
+      <label for="income">รายได้รวม (บาท):</label>
+      <input type="number" id="income" placeholder="กรุณากรอกจำนวนเงิน" required>
+
+      <label for="deductions">ค่าลดหย่อน (บาท):</label>
+      <input type="number" id="deductions" placeholder="กรุณากรอกค่าลดหย่อน" required>
+
+      <label for="donations">เงินบริจาค (บาท):</label>
+      <input type="number" id="donations" placeholder="กรุณากรอกจำนวนเงินบริจาค" required>
+
+      <button type="button" onclick="calculateTax()">คำนวณภาษี</button>
+    </form>
+    <h2 id="result"></h2>
+    <button id="download" style="display:none;" onclick="downloadResult()">ดาวน์โหลดผลลัพธ์</button>
+  </div>
+  <script>
+    function calculateTax() {
+      const income = parseFloat(document.getElementById('income').value);
+      const deductions = parseFloat(document.getElementById('deductions').value);
+      const donations = parseFloat(document.getElementById('donations').value);
+
+      const taxableIncome = income - deductions - donations;
+      let tax = 0;
+
+      if (taxableIncome > 0) {
+        if (taxableIncome <= 150000) tax = 0;
+        else if (taxableIncome <= 300000) tax = (taxableIncome - 150000) * 0.05;
+        else if (taxableIncome <= 500000) tax = (taxableIncome - 300000) * 0.10 + 7500;
+        else tax = (taxableIncome - 500000) * 0.20 + 27500;
+      }
+
+      const result = `คุณต้องชำระภาษี: ${tax.toFixed(2)} บาท`;
+      document.getElementById('result').textContent = result;
+
+      // เปิดใช้งานปุ่มดาวน์โหลด
+      document.getElementById('download').style.display = 'block';
+      localStorage.setItem('taxResult', result);
+    }
+
+    function downloadResult() {
+      const result = localStorage.getItem('taxResult');
+      const blob = new Blob([result], { type: 'text/plain' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'ผลลัพธ์การคำนวณภาษี.txt';
+      a.click();
+    }
+  </script>
+</body>
+</html>
