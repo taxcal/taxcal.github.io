@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คำนวณภาษีบุคคล</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">หน้าแรก</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="calculate.html">เริ่มคำนวณภาษี</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <form action="result.html" method="GET">
+            <h2>รายรับ</h2>
+            <label for="salary">เงินเดือน (บาท):</label>
+            <input type="number" id="salary" name="salary" required>
+            
+            <label for="bonus">โบนัส (บาท):</label>
+            <input type="number" id="bonus" name="bonus">
+            
+            <label for="other_income">รายได้อื่น ๆ (บาท):</label>
+            <input type="number" id="other_income" name="other_income">
+            
+            <h2>ลดหย่อนภาษี: ครอบครัว</h2>
+            <label>ลดหย่อนส่วนบุคคล:</label>
+            <p>60,000 บาท</p>
+            
+            <label>ลดหย่อนบิดา-มารดา (คนละ 30,000 บาท):</label>
+            <input type="checkbox" name="father" value="30000"> บิดา<br>
+            <input type="checkbox" name="mother" value="30000"> มารดา<br>
+            
+            <label>ลดหย่อนผู้พิการหรือทุพพลภาพ (ไม่มีเงินได้):</label>
+            <input type="checkbox" name="disabled_father" value="60000"> บิดา<br>
+            <input type="checkbox" name="disabled_mother" value="60000"> มารดา<br>
+            
+            <h2>สถานะสมรส</h2>
+            <select name="marital_status" required>
+                <option value="single">โสด</option>
+                <option value="married">สมรส</option>
+                <option value="divorced">หย่า</option>
+            </select>
+            
+            <label>บุตรคนที่ 1:</label>
+            <select name="child1">
+                <option value="none">ไม่มี</option>
+                <option value="yes">มี</option>
+            </select>
+            
+            <button type="submit">คำนวณภาษี</button>
+        </form>
+    </main>
+</body>
+</html>
