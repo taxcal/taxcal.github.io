@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ผลลัพธ์</title>
+</head>
+<body>
+    <h1>ผลลัพธ์การคำนวณภาษี</h1>
+    <div id="results"></div>
+
+    <script>
+        function calculateTax() {
+            const totalIncome = parseFloat(localStorage.getItem('totalIncome')) || 0;
+            const expenses = parseFloat(localStorage.getItem('expenses')) || 0;
+            const deductions = JSON.parse(localStorage.getItem('deductions')) || {};
+            const insurance = parseFloat(localStorage.getItem('insurance')) || 0;
+
+            const totalDeductions = expenses + Object.values(deductions).reduce((a, b) => a + b, 0) + insurance;
+            const netIncome = totalIncome - totalDeductions;
+            const tax = Math.max(netIncome * 0.1, 0); // ภาษี 10% ตัวอย่าง
+
+            return { totalIncome, expenses, deductions, insurance, totalDeductions, netIncome, tax };
+        }
+
+        const { totalIncome, expenses, deductions, insurance, totalDeductions, netIncome, tax } = calculateTax();
+
+        document.getElementById('results').innerHTML = `
+            <p>รายได้รวม: ${totalIncome.toLocaleString()} บาท</p>
+            <p>ค่าใช้จ่าย: ${expenses.toLocaleString()} บาท</p>
+            <p>ค่าลดหย่อน: ${totalDeductions.toLocaleString()} บาท</p>
+            <p>รายได้สุทธิ: ${netIncome.toLocaleString()} บาท</p>
+            <p>ภาษีที่ต้องจ่าย: ${tax.toLocaleString()} บาท</p>
+        `;
+    </script>
+</body>
+</html>
