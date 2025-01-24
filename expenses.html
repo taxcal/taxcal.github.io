@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ค่าใช้จ่าย</title>
+</head>
+<body>
+    <h1>ค่าใช้จ่าย</h1>
+    <label>ค่าใช้จ่ายส่วนตัว: </label><input type="number" id="personalExpenses"><br>
+    <p>หมายเหตุ: 50% ของเงินได้แต่ไม่เกิน 100,000 บาท</p>
+    <button onclick="goToDeductions()">ถัดไป</button>
+
+    <script>
+        function goToDeductions() {
+            const totalIncome = parseFloat(localStorage.getItem('totalIncome')) || 0;
+            const personalExpenses = parseFloat(document.getElementById('personalExpenses').value) || 0;
+            const maxExpenses = Math.min(personalExpenses, totalIncome * 0.5, 100000);
+
+            localStorage.setItem('expenses', maxExpenses);
+            location.href = 'deductions.html';
+        }
+    </script>
+</body>
+</html>
