@@ -9,6 +9,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    flex-direction: column;
 }
 
 h1 {
@@ -50,12 +51,6 @@ button:hover {
 
 button:active {
     transform: scale(0.98);
-}
-
-p {
-    text-align: center;
-    color: #666;
-    font-size: 1rem;
 }
 
 input[type="text"],
@@ -100,6 +95,12 @@ label {
     color: #004d40;
 }
 
+p {
+    text-align: center;
+    color: #666;
+    font-size: 1rem;
+}
+
 @media screen and (max-width: 768px) {
     body {
         padding: 10px;
@@ -111,5 +112,10 @@ label {
 
     button {
         font-size: 1rem;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+        font-size: 0.9rem;
     }
 }
