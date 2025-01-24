@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ลดหย่อนภาษี</title>
+</head>
+<body>
+    <h1>ลดหย่อนภาษี</h1>
+    <label>สถานะ: </label>
+    <select id="status">
+        <option value="โสด">โสด</option>
+        <option value="สมรส">สมรส</option>
+        <option value="หย่าร้าง">หย่าร้าง</option>
+    </select><br>
+    <label>จำนวนบุตร: </label><input type="number" id="children"><br>
+    <p>หมายเหตุ: ลดหย่อนคนละ 30,000 บาท</p>
+    <label>เลี้ยงดูบิดามารดา: </label>
+    <select id="parents">
+        <option value="0">ไม่มี</option>
+        <option value="1">1 คน</option>
+        <option value="2">2 คน</option>
+    </select>
+    <p>หมายเหตุ: ลดหย่อนคนละ 30,000 บาท (รายได้ไม่เกิน 30,000 บาท/ปี)</p>
+    <label>เลี้ยงดูคนพิการ: </label>
+    <select id="disabledCare">
+        <option value="0">ไม่มี</option>
+        <option value="60000">มี</option>
+    </select><br>
+    <button onclick="goToInsurance()">ถัดไป</button>
+
+    <script>
+        function goToInsurance() {
+            const children = parseInt(document.getElementById('children').value) || 0;
+            const parents = parseInt(document.getElementById('parents').value) || 0;
+            const disabledCare = parseInt(document.getElementById('disabledCare').value) || 0;
+
+            const deductions = {
+                children: children * 30000,
+                parents: parents * 30000,
+                disabledCare: disabledCare,
+            };
+
+            localStorage.setItem('deductions', JSON.stringify(deductions));
+            location.href = 'insurance.html';
+        }
+    </script>
+</body>
+</html>
