@@ -7,12 +7,16 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>ผลลัพธ์การคำนวณภาษี</h1>
-    <div class="results" id="results"></div>
+    <div class="container">
+        <h1>ผลลัพธ์การคำนวณภาษี</h1>
+        <div class="results" id="results"></div>
+        
+        <!-- ปุ่มเริ่มต้นใหม่ -->
+        <button onclick="resetAndGoHome()">เริ่มต้นใหม่</button>
+    </div>
 
     <script>
         function calculateTax(netIncome) {
-            // ตารางอัตราภาษีแบบขั้นบันได
             const taxBrackets = [
                 { limit: 150000, rate: 0 },
                 { limit: 300000, rate: 0.05 },
@@ -63,6 +67,12 @@
             <p><strong>รายได้สุทธิ:</strong> ${netIncome.toLocaleString()} บาท</p>
             <p><strong>ภาษีที่ต้องชำระ:</strong> ${tax.toLocaleString()} บาท</p>
         `;
+
+        // ฟังก์ชันล้างข้อมูลและกลับไปหน้าแรก
+        function resetAndGoHome() {
+            localStorage.clear(); // ล้างข้อมูล Local Storage
+            window.location.href = 'index.html'; // กลับไปหน้าแรก
+        }
     </script>
 </body>
 </html>
