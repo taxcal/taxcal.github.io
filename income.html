@@ -7,28 +7,18 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- แถบเมนูด้านบน -->
-    <div class="navbar">
-        <div class="menu">
-            <a href="index.html">หน้าแรก</a>
-            <a href="faq.html">FAQ</a>
-        </div>
-    </div>
-
     <div class="container">
         <h1>รายรับ</h1>
-        <form id="income-form">
-            <label for="salary">เงินเดือน:</label>
-            <input type="number" id="salary" name="salary" required>
+        <label for="salary">เงินเดือน:</label>
+        <input type="number" id="salary" placeholder="กรอกเงินเดือน">
 
-            <label for="bonus">โบนัส:</label>
-            <input type="number" id="bonus" name="bonus">
+        <label for="bonus">โบนัส:</label>
+        <input type="number" id="bonus" placeholder="กรอกโบนัส">
 
-            <label for="otherIncome">รายได้อื่น ๆ:</label>
-            <input type="number" id="otherIncome" name="otherIncome">
+        <label for="otherIncome">รายได้อื่นๆ:</label>
+        <input type="number" id="otherIncome" placeholder="กรอกข้อมูลรายได้อื่นๆ">
 
-            <button type="submit">ถัดไป</button>
-        </form>
+        <button onclick="location.href='expenses.html'">ถัดไป</button>
     </div>
 </body>
 </html>
