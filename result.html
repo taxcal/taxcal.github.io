@@ -9,70 +9,14 @@
 <body>
     <div class="container">
         <h1>ผลลัพธ์การคำนวณภาษี</h1>
-        <div class="results" id="results"></div>
-        
-        <!-- ปุ่มเริ่มต้นใหม่ -->
-        <button onclick="resetAndGoHome()">เริ่มต้นใหม่</button>
+
+        <div class="results">
+            <p><strong>รายได้สุทธิ:</strong> 500,000 บาท</p>
+            <p><strong>ค่าลดหย่อน:</strong> 150,000 บาท</p>
+            <p><strong>ภาษีที่ต้องชำระ:</strong> 35,000 บาท</p>
+        </div>
+
+        <button onclick="location.href='index.html'">เริ่มต้นใหม่</button>
     </div>
-
-    <script>
-        function calculateTax(netIncome) {
-            const taxBrackets = [
-                { limit: 150000, rate: 0 },
-                { limit: 300000, rate: 0.05 },
-                { limit: 500000, rate: 0.1 },
-                { limit: 750000, rate: 0.15 },
-                { limit: 1000000, rate: 0.2 },
-                { limit: 2000000, rate: 0.25 },
-                { limit: 5000000, rate: 0.3 },
-                { limit: Infinity, rate: 0.35 },
-            ];
-
-            let tax = 0;
-            let remainingIncome = netIncome;
-
-            for (const bracket of taxBrackets) {
-                if (remainingIncome > 0) {
-                    const taxableIncome = Math.min(remainingIncome, bracket.limit - (taxBrackets[taxBrackets.indexOf(bracket) - 1]?.limit || 0));
-                    tax += taxableIncome * bracket.rate;
-                    remainingIncome -= taxableIncome;
-                } else {
-                    break;
-                }
-            }
-
-            return tax;
-        }
-
-        // ดึงข้อมูลจาก Local Storage
-        const totalIncome = parseFloat(localStorage.getItem('totalIncome')) || 0;
-        const expenses = parseFloat(localStorage.getItem('expenses')) || 0;
-        const deductions = JSON.parse(localStorage.getItem('deductions')) || {};
-        const insurance = parseFloat(localStorage.getItem('insurance')) || 0;
-
-        // คำนวณค่าลดหย่อนทั้งหมด
-        const totalDeductions = expenses + Object.values(deductions).reduce((a, b) => a + b, 0) + insurance;
-
-        // คำนวณรายได้สุทธิ
-        const netIncome = Math.max(totalIncome - totalDeductions, 0);
-
-        // คำนวณภาษี
-        const tax = calculateTax(netIncome);
-
-        // แสดงผลลัพธ์
-        const resultsDiv = document.getElementById('results');
-        resultsDiv.innerHTML = `
-            <p><strong>รายได้รวม:</strong> ${totalIncome.toLocaleString()} บาท</p>
-            <p><strong>ค่าลดหย่อนทั้งหมด:</strong> ${totalDeductions.toLocaleString()} บาท</p>
-            <p><strong>รายได้สุทธิ:</strong> ${netIncome.toLocaleString()} บาท</p>
-            <p><strong>ภาษีที่ต้องชำระ:</strong> ${tax.toLocaleString()} บาท</p>
-        `;
-
-        // ฟังก์ชันล้างข้อมูลและกลับไปหน้าแรก
-        function resetAndGoHome() {
-            localStorage.clear(); // ล้างข้อมูล Local Storage
-            window.location.href = 'index.html'; // กลับไปหน้าแรก
-        }
-    </script>
 </body>
 </html>
