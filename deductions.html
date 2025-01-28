@@ -7,60 +7,39 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- แถบเมนูด้านบน -->
-    <div class="navbar">
-        <div class="menu">
-            <a href="index.html">หน้าแรก</a>
-            <a href="faq.html">FAQ</a>
-        </div>
-    </div>
-
     <div class="container">
         <h1>ลดหย่อนภาษี</h1>
-        <form id="deductions-form">
-            <!-- สถานะ -->
-            <label for="status">สถานะ:</label>
-            <select id="status" name="status" required>
-                <option value="โสด">โสด</option>
-                <option value="สมรส">สมรส</option>
-                <option value="หย่าร้าง">หย่าร้าง</option>
-            </select>
 
-            <!-- ค่ารถยนต์ -->
-            <label for="car-expenses">ค่ารถยนต์ส่วนตัว:</label>
-            <input type="number" id="car-expenses" name="car-expenses" placeholder="สูงสุด 60,000 บาท">
+        <div>
+            <h2 class="section-title">ลดหย่อนส่วนบุคคล</h2>
+            <label for="personalDeduction">ลดหย่อนส่วนบุคคล:</label>
+            <input type="number" id="personalDeduction" value="60000" disabled>
+        </div>
 
-            <!-- จำนวนบุตร -->
-            <label for="children">จำนวนบุตร:</label>
-            <input type="number" id="children" name="children" placeholder="คนละ 30,000 บาท">
+        <div>
+            <h2 class="section-title">ค่าลดหย่อนบุตร</h2>
+            <label for="children">จำนวนบุตร (คนละ 30,000 บาท):</label>
+            <input type="number" id="children" placeholder="กรอกจำนวนบุตร">
+            <p class="note">หมายเหตุ: ลดหย่อนได้ 30,000 บาทต่อคน</p>
+        </div>
 
-            <!-- ค่าเลี้ยงดูบิดามารดา -->
-            <label for="parents">ค่าเลี้ยงดูบิดามารดา:</label>
-            <select id="parents" name="parents">
-                <option value="0">ไม่มี</option>
-                <option value="1">1 คน</option>
-                <option value="2">2 คน</option>
-            </select>
-            <p>คนละ 30,000 บาท (รายได้ไม่เกิน 30,000 บาทต่อปี)</p>
+        <div>
+            <h2 class="section-title">ค่าเลี้ยงดูบิดามารดา</h2>
+            <label for="parents">จำนวนบิดามารดา (คนละ 30,000 บาท):</label>
+            <input type="number" id="parents" placeholder="กรอกจำนวนบิดามารดา">
+            <p class="note">บิดามารดาต้องมีรายได้ไม่เกิน 30,000 บาทต่อปี</p>
+        </div>
 
-            <!-- ค่าเลี้ยงดูคนพิการ -->
-            <label for="disability">ค่าเลี้ยงดูคนพิการ:</label>
-            <select id="disability" name="disability">
+        <div>
+            <h2 class="section-title">ค่าเลี้ยงดูคนพิการ</h2>
+            <label for="disabled">เลือก:</label>
+            <select id="disabled">
                 <option value="ไม่มี">ไม่มี</option>
                 <option value="มี">มี</option>
             </select>
-            <p>60,000 บาท</p>
+        </div>
 
-            <!-- ประกันชีวิตและสุขภาพ -->
-            <label for="insurance">เบี้ยประกันชีวิตและสุขภาพ:</label>
-            <input type="number" id="insurance" name="insurance" placeholder="สูงสุดรวม 100,000 บาท">
-
-            <!-- ค่าลดหย่อนส่วนบุคคล -->
-            <label for="personal-deduction">ค่าลดหย่อนส่วนบุคคล:</label>
-            <input type="number" id="personal-deduction" value="60000" readonly>
-
-            <button type="submit">ถัดไป</button>
-        </form>
+        <button onclick="location.href='insurance.html'">ถัดไป</button>
     </div>
 </body>
 </html>
