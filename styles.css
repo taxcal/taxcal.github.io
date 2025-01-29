@@ -1,4 +1,4 @@
-/* พื้นฐานสำหรับทุกหน้า */
+/* styles.css */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -29,7 +29,6 @@ h1 {
     text-align: center;
 }
 
-/* ปุ่ม */
 button {
     display: inline-block;
     width: 100%;
@@ -54,7 +53,6 @@ button:active {
     transform: scale(0.98);
 }
 
-/* ฟอร์ม (input และ select) */
 input[type="text"],
 input[type="number"],
 select {
@@ -85,7 +83,6 @@ label {
     text-align: left;
 }
 
-/* กล่องผลลัพธ์ */
 .results {
     background: #e0f2f1;
     padding: 15px;
@@ -106,7 +103,6 @@ p {
     font-size: 1rem;
 }
 
-/* หัวข้อย่อย */
 .section-title {
     font-size: 1.2rem;
     font-weight: bold;
@@ -117,7 +113,6 @@ p {
     text-align: left;
 }
 
-/* หมายเหตุ */
 .note {
     font-size: 0.9rem;
     color: #555;
@@ -125,15 +120,22 @@ p {
     margin-bottom: 20px;
 }
 
-/* แถบเลือก (select dropdown) */
-select {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
-    background-color: #fff;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2300796b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points
+@media screen and (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    button {
+        font-size: 1rem;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+        font-size: 0.9rem;
+    }
+}
