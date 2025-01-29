@@ -7,39 +7,59 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>ลดหย่อนภาษี</h1>
+    <h1>ลดหย่อนภาษี</h1>
+    <form>
+        <label>สถานะ:</label>
+        <select id="status">
+            <option value="โสด">โสด</option>
+            <option value="สมรส">สมรส</option>
+            <option value="หย่าร้าง">หย่าร้าง</option>
+        </select>
 
-        <div>
-            <h2 class="section-title">ลดหย่อนส่วนบุคคล</h2>
-            <label for="personalDeduction">ลดหย่อนส่วนบุคคล:</label>
-            <input type="number" id="personalDeduction" value="60000" disabled>
-        </div>
+        <label>จำนวนบุตร:</label>
+        <input type="number" id="children">
 
-        <div>
-            <h2 class="section-title">ค่าลดหย่อนบุตร</h2>
-            <label for="children">จำนวนบุตร (คนละ 30,000 บาท):</label>
-            <input type="number" id="children" placeholder="กรอกจำนวนบุตร">
-            <p class="note">หมายเหตุ: ลดหย่อนได้ 30,000 บาทต่อคน</p>
-        </div>
+        <p>หมายเหตุ: ลดหย่อนคนละ 30,000 บาท</p>
 
-        <div>
-            <h2 class="section-title">ค่าเลี้ยงดูบิดามารดา</h2>
-            <label for="parents">จำนวนบิดามารดา (คนละ 30,000 บาท):</label>
-            <input type="number" id="parents" placeholder="กรอกจำนวนบิดามารดา">
-            <p class="note">บิดามารดาต้องมีรายได้ไม่เกิน 30,000 บาทต่อปี</p>
-        </div>
+        <label>เลี้ยงดูบิดามารดา:</label>
+        <select id="parents">
+            <option value="0">ไม่มี</option>
+            <option value="1">1 คน</option>
+            <option value="2">2 คน</option>
+        </select>
 
-        <div>
-            <h2 class="section-title">ค่าเลี้ยงดูคนพิการ</h2>
-            <label for="disabled">เลือก:</label>
-            <select id="disabled">
-                <option value="ไม่มี">ไม่มี</option>
-                <option value="มี">มี</option>
-            </select>
-        </div>
+        <p>หมายเหตุ: ลดหย่อนคนละ 30,000 บาท</p>
 
-        <button onclick="location.href='insurance.html'">ถัดไป</button>
-    </div>
+        <label>เลี้ยงดูคนพิการ:</label>
+        <select id="disabledCare">
+            <option value="0">ไม่มี</option>
+            <option value="60000">มี</option>
+        </select>
+
+        <label>ลดหย่อนส่วนบุคคล:</label>
+        <input type="number" value="60000" disabled>
+
+        <p>หมายเหตุ: ลดหย่อนส่วนบุคคลสูงสุด 60,000 บาท</p>
+
+        <button type="button" onclick="goToInsurance()">ถัดไป</button>
+    </form>
+
+    <script>
+        function goToInsurance() {
+            const children = parseInt(document.getElementById('children').value) || 0;
+            const parents = parseInt(document.getElementById('parents').value) || 0;
+            const disabledCare = parseInt(document.getElementById('disabledCare').value) || 0;
+
+            const deductions = {
+                personalDeduction: 60000,
+                children: children * 30000,
+                parents: parents * 30000,
+                disabledCare: disabledCare,
+            };
+
+            localStorage.setItem('deductions', JSON.stringify(deductions));
+            location.href = 'insurance.html';
+        }
+    </script>
 </body>
 </html>
