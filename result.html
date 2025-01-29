@@ -8,14 +8,11 @@
 </head>
 <body>
     <h1>ผลลัพธ์การคำนวณภาษี</h1>
-
-    <!-- แสดงผลลัพธ์ -->
     <div class="results" id="results"></div>
-
-    <button class="restart-button" onclick="window.location.href='index.html'">เริ่มต้นใหม่</button>
 
     <script>
         function calculateTax(netIncome) {
+            // ตารางอัตราภาษีแบบขั้นบันได
             const taxBrackets = [
                 { limit: 150000, rate: 0 },
                 { limit: 300000, rate: 0.05 },
