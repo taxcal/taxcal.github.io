@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ผลลัพธ์การคำนวณภาษี</title>
+    <title>ผลลัพธ์</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,7 +12,6 @@
 
     <script>
         function calculateTax(netIncome) {
-            // ตารางอัตราภาษีแบบขั้นบันได
             const taxBrackets = [
                 { limit: 150000, rate: 0 },
                 { limit: 300000, rate: 0.05 },
@@ -29,7 +28,7 @@
 
             for (const bracket of taxBrackets) {
                 if (remainingIncome > 0) {
-                    const taxableIncome = Math.min(remainingIncome, bracket.limit - (taxBrackets[taxBrackets.indexOf(bracket) - 1]?.limit || 0));
+                    const taxableIncome = Math.min(remainingIncome, bracket.limit);
                     tax += taxableIncome * bracket.rate;
                     remainingIncome -= taxableIncome;
                 } else {
@@ -40,29 +39,11 @@
             return tax;
         }
 
-        // ดึงข้อมูลจาก Local Storage
         const totalIncome = parseFloat(localStorage.getItem('totalIncome')) || 0;
         const expenses = parseFloat(localStorage.getItem('expenses')) || 0;
         const deductions = JSON.parse(localStorage.getItem('deductions')) || {};
         const insurance = parseFloat(localStorage.getItem('insurance')) || 0;
 
-        // คำนวณค่าลดหย่อนทั้งหมด
         const totalDeductions = expenses + Object.values(deductions).reduce((a, b) => a + b, 0) + insurance;
-
-        // คำนวณรายได้สุทธิ
-        const netIncome = Math.max(totalIncome - totalDeductions, 0);
-
-        // คำนวณภาษี
-        const tax = calculateTax(netIncome);
-
-        // แสดงผลลัพธ์
-        const resultsDiv = document.getElementById('results');
-        resultsDiv.innerHTML = `
-            <p><strong>รายได้รวม:</strong> ${totalIncome.toLocaleString()} บาท</p>
-            <p><strong>ค่าลดหย่อนทั้งหมด:</strong> ${totalDeductions.toLocaleString()} บาท</p>
-            <p><strong>รายได้สุทธิ:</strong> ${netIncome.toLocaleString()} บาท</p>
-            <p><strong>ภาษีที่ต้องชำระ:</strong> ${tax.toLocaleString()} บาท</p>
-        `;
-    </script>
-</body>
-</html>
+        const netIncome = totalIncome - totalDeductions;
+        const
